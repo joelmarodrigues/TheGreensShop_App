@@ -3,11 +3,14 @@ package com.example.thegreensshop_app
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
+import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
@@ -45,7 +48,32 @@ class SignupActivity : AppCompatActivity() {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
 
-            // Generate random geolocation
+            //Handling exceptions
+            // Check if any field is empty
+            if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || phone.isEmpty() || address.flatHouseNo.isEmpty() || address.street.isEmpty() || address.city.isEmpty() || address.zipcode.isEmpty()) {
+                Snackbar.make(signupButton, "Please fill out all fields.", Snackbar.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Check if email is valid
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Snackbar.make(signupButton, "Please enter a valid email address.", Snackbar.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Check if password meets requirements
+            if (password.length < 8 || !password.matches(Regex(".*\\d.*[a-zA-Z].*"))){
+                Snackbar.make(signupButton, "Password must contain at least 8 characters with numbers and letters.", Snackbar.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Check if phone number is valid
+            if (phone.length < 8 || phone.length > 10 || !TextUtils.isDigitsOnly(phone)) {
+                Snackbar.make(signupButton, "Please enter a valid phone number (8 to 10 digits).", Snackbar.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Random geolocation
             val random = Random()
             val minLat = -90.0
             val maxLat = 90.0
@@ -57,30 +85,51 @@ class SignupActivity : AppCompatActivity() {
 
             val newUser = User(name, email, phone, address, geolocation)
 
-            // Save user object to Firestore
+            // Get Firestore database reference for the user collection
             val db = FirebaseFirestore.getInstance()
-            db.collection("users").document(email).set(newUser)
-                .addOnSuccessListener {
-                    Log.d(TAG, "User created successfully!")
-                    Toast.makeText(this, "User created successfully!", Toast.LENGTH_SHORT).show()
+            val userRef = db.collection("users").document(email)
 
-                    // Sign up user with Firebase Authentication
-                    auth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(this) { task ->
-                            if (task.isSuccessful) {
-                                Log.d(TAG, "User signed up with Firebase Authentication successfully!")
-                                Toast.makeText(this, "User signed up with Firebase Authentication successfully!", Toast.LENGTH_SHORT).show()
-                                val intent = Intent(this, MainActivity::class.java)
-                                startActivity(intent)
-                            } else {
-                                Log.w(TAG, "Error signing up user with Firebase Authentication", task.exception)
-                                Toast.makeText(this, "Error signing up user with Firebase Authentication", Toast.LENGTH_SHORT).show()
+            userRef.get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        // Email already registered, show error message
+                        Snackbar.make(signupButton, "This email is already registered. Please use a different email.", Snackbar.LENGTH_SHORT).show()
+                    } else {
+
+                        // Email not registered, create new user
+                        userRef.set(newUser)
+                            .addOnSuccessListener {
+                                // User created in the database, show success message
+                                Log.d(TAG, "Account created!")
+                                Toast.makeText(this, "Your account has been created successfully!", Toast.LENGTH_SHORT).show()
+
+                                // Sign up user with Firebase Authentication
+                                auth.createUserWithEmailAndPassword(email, password)
+                                    .addOnCompleteListener(this) { task ->
+                                        if (task.isSuccessful) {
+                                            Log.d(TAG, "User signed up with Firebase Authentication successfully!")
+                                            Toast.makeText(this, "You are now signed up and logged in!", Toast.LENGTH_SHORT).show()
+
+                                            // Check if user was added to Firebase Authentication successfully
+                                            val user = auth.currentUser
+                                            if (user != null) {
+                                                val intent = Intent(this, MainActivity::class.java)
+                                                startActivity(intent)
+                                            } else {
+                                                Log.w(TAG, "Error signing up user with Firebase Authentication", task.exception)
+                                                Toast.makeText(this, "Error signing up user. Please try again later.", Toast.LENGTH_SHORT).show()
+                                            }
+                                        } else {
+                                            Log.w(TAG, "Error signing up user with Firebase Authentication", task.exception)
+                                            Toast.makeText(this, "Error signing up user. Please try again later.", Toast.LENGTH_SHORT).show()
+                                        }
+                                    }
                             }
-                        }
-                }
-                .addOnFailureListener { e ->
-                    Log.w(TAG, "Error creating user", e)
-                    Toast.makeText(this, "Error creating user", Toast.LENGTH_SHORT).show()
+                            .addOnFailureListener { e ->
+                                Log.w(TAG, "Error creating user", e)
+                                Toast.makeText(this, "Ops! Something went wrong. Please try again later.", Toast.LENGTH_SHORT).show()
+                            }
+                    }
                 }
         }
     }

@@ -47,10 +47,26 @@ class LoginActivity : AppCompatActivity() {
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
-                        Toast.makeText(
-                            baseContext, "Authentication failed.",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        when {
+                            task.exception?.message?.contains("password") == true -> {
+                                Toast.makeText(
+                                    baseContext, "Incorrect password.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                            task.exception?.message?.contains("no user") == true -> {
+                                Toast.makeText(
+                                    baseContext, "User not found.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                            else -> {
+                                Toast.makeText(
+                                    baseContext, "Authentication failed.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
                     }
                 }
         }
