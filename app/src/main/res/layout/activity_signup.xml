@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:ignore="ExtraText">
 
-    <EditText
-        android:id="@+id/username_edittext"
+<TextView
+    android:id="@+id/signup_textview"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginTop="40dp"
+    android:text="@string/signup"
+    android:textColor="@color/green_dark"
+    android:textSize="40sp" />
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:autofillHints="@string/username"
-        android:background="@drawable/box_edit_text"
-        android:hint="@string/username"
-        android:inputType="text" />
+        android:layout_marginBottom="20dp"
+        android:text="@string/create_a_new_account"
+        android:textAlignment="center"
+        android:textColor="@color/green_dark"
+        android:textSize="16sp" />
+
 
     <EditText
         android:id="@+id/firstname_edittext"
@@ -40,9 +52,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:autofillHints="@string/email"
+        android:autofillHints="@string/e_mail"
         android:background="@drawable/box_edit_text"
-        android:hint="@string/email"
+        android:hint="@string/e_mail"
         android:inputType="textEmailAddress" />
 
     <EditText
@@ -66,11 +78,12 @@
         android:inputType="textPassword" />
 
     <EditText
-        android:id="@+id/address_edittext"
+        android:id="@+id/flat_houseNo_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:autofillHints="@string/address"
+        android:autofillHints="@string/flat_houseNo"
+        android:hint="@string/flat_houseNo"
         android:background="@drawable/box_edit_text"
         android:inputType="text" />
 
@@ -120,6 +133,7 @@
         android:id="@+id/signup_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/box_button"
         android:text="@string/signup"
