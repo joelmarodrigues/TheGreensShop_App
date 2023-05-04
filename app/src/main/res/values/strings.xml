@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">TheGreensShop_App</string>
+    <string name="logo" />
+    <string name="e_mail" />
+    <string name="password" />
+    <string name="login" />
+    <string name="signup" />
+    <string name="first_name" />
+    <string name="username" />
+    <string name="last_name" />
+    <string name="email" />
+    <string name="phone"/>
+    <string name="address" />
+    <string name="street" />
+    <string name="city" />
+    <string name="zipcode" />
+    <string name="country" />
+    <string name="number" />
+
+</resources>

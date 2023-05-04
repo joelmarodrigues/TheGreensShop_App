@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "157355784413",
+    "project_id": "thegreensshop-13502",
+    "storage_bucket": "thegreensshop-13502.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157355784413:android:ca4e4cb1bd870c30510334",
+        "android_client_info": {
+          "package_name": "com.example.thegreensshop_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "157355784413-q16qqbi3mcp18bpdomd80ma73dirib1d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3xX59BY-QH5bSYye0g9WsPSrhY814tks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "157355784413-q16qqbi3mcp18bpdomd80ma73dirib1d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

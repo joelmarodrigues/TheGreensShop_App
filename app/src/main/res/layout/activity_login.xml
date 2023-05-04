@@ -1,0 +1,76 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:button="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/plant_pot"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="@string/logo" />
+
+    <EditText
+        android:id="@+id/email_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:autofillHints="E-mail or Username"
+        android:background="@drawable/box_edit_text"
+        android:hint="@string/e_mail"
+        android:inputType="textEmailAddress"
+        android:maxHeight="72dp"
+        android:minHeight="48dp"
+        android:paddingStart="20dp"
+        android:textColorHint="#455A64"
+        tools:ignore="RtlSymmetry,VisualLintTextFieldSize" />
+
+    <EditText
+        android:id="@+id/password_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:autofillHints="Password"
+        android:background="@drawable/box_edit_text"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:maxHeight="72dp"
+        android:minHeight="48dp"
+        android:paddingStart="20dp"
+        android:textColorHint="#455A64"
+        tools:ignore="RtlSymmetry,VisualLintTextFieldSize" />
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/login"
+        android:minHeight="48dp"
+        android:maxHeight="72dp"
+        android:background="@drawable/box_button"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        button:cornerRadius="10dp"
+        tools:ignore="VisualLintButtonSize" />
+
+    <Button
+        android:id="@+id/signup_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/signup"
+        android:minHeight="48dp"
+        android:maxHeight="72dp"
+        android:background="@drawable/box_button"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        tools:ignore="VisualLintButtonSize" />
+
+
+</LinearLayout>
