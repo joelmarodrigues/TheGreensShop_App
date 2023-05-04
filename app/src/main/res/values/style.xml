@@ -4,6 +4,6 @@
         <!-- Customize your theme here. -->
         <!-- Remove the action bar -->
         <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+        <item name="windowNoTitle">false</item>
     </style>
 </resources>

@@ -24,7 +24,7 @@ class SignupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
 
-
+        supportActionBar?.hide()
         auth = FirebaseAuth.getInstance()
 
         val flatHouseNoEditText: EditText = findViewById(R.id.flat_houseNo_edittext)
