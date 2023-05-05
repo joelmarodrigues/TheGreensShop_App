@@ -1,5 +1,6 @@
-package com.example.thegreensshop_app
+package com.example.thegreensshop_app.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.thegreensshop_app.R
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
@@ -42,6 +44,14 @@ class LoginActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithEmail:success")
+                        FirebaseAuth.getInstance().currentUser?.getIdToken(true)?.addOnCompleteListener { task2 ->
+                            if (task2.isSuccessful) {
+                                val token = task2.result?.token
+                                // Save token in SharedPreferences
+                                val sharedPrefs = getSharedPreferences("auth", Context.MODE_PRIVATE)
+                                sharedPrefs.edit().putString("auth_token", token).apply()
+                            }
+                        }
 
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
@@ -77,9 +87,32 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val sharedPrefs = getSharedPreferences("auth", Context.MODE_PRIVATE)
+        val authToken = sharedPrefs.getString("auth_token", null)
+
+        if (authToken != null) {
+            FirebaseAuth.getInstance().signInWithCustomToken(authToken)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        // Redirect MainActivity
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        // Clean token
+                        sharedPrefs.edit().remove("auth_token").apply()
+                    }
+                }
+        } else {
+            mAuth.currentUser?.let {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
     }
 
     companion object {
-        private const val TAG = "com.example.thegreensshop_app.LoginActivity"
+        private const val TAG = "com.example.thegreensshop_app.activities.LoginActivity"
     }
 }

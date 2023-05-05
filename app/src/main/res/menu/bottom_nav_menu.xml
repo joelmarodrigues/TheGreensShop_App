@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/shopFragment"
+        android:icon="@drawable/round_home_24"
+        android:title="@string/shop" />
+    <item
+        android:id="@+id/cartFragment"
+        android:icon="@drawable/round_shopping_bag_24"
+        android:title="@string/cart" />
+    <item
+        android:id="@+id/ordersFragment"
+        android:icon="@drawable/round_library_books_24"
+        android:title="@string/orders" />
+    <item
+        android:id="@+id/myAccountFragment"
+        android:icon="@drawable/round_person_24"
+        android:title="@string/account" />
+</menu>

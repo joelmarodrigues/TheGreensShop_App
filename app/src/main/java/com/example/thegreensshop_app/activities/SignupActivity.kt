@@ -1,4 +1,4 @@
-package com.example.thegreensshop_app
+package com.example.thegreensshop_app.activities
 
 import android.content.ContentValues.TAG
 import android.content.Intent
@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.thegreensshop_app.R
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -35,6 +36,7 @@ class SignupActivity : AppCompatActivity() {
         val streetEditText: EditText = findViewById(R.id.street_edittext)
         val cityEditText: EditText = findViewById(R.id.city_edittext)
         val zipcodeEditText: EditText = findViewById(R.id.zipcode_edittext)
+        val countryEditText: EditText = findViewById(R.id.country_edittext)
         val phoneEditText: EditText = findViewById(R.id.phone_edittext)
 
         val signupButton: Button = findViewById(R.id.signup_button)
@@ -43,14 +45,14 @@ class SignupActivity : AppCompatActivity() {
             val firstName = firstNameEditText.text.toString()
             val lastName = lastNameEditText.text.toString()
             val name = Name(firstName, lastName)
-            val address = Address(flatHouseNoEditText.text.toString(), streetEditText.text.toString(), cityEditText.text.toString(), zipcodeEditText.text.toString(), "Ireland")
+            val address = Address(flatHouseNoEditText.text.toString(), streetEditText.text.toString(), cityEditText.text.toString(), zipcodeEditText.text.toString(), countryEditText.text.toString())
             val phone = phoneEditText.text.toString()
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
 
             //Handling exceptions
             // Check if any field is empty
-            if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || phone.isEmpty() || address.flatHouseNo.isEmpty() || address.street.isEmpty() || address.city.isEmpty() || address.zipcode.isEmpty()) {
+            if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || phone.isEmpty() || address.flatHouseNo.isEmpty() || address.street.isEmpty() || address.city.isEmpty() || address.zipcode.isEmpty() || address.country.isEmpty()) {
                 Snackbar.make(signupButton, "Please fill out all fields.", Snackbar.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
