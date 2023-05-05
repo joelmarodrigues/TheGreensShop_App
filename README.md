@@ -93,4 +93,4 @@ Download the latest version [here](https://github.com/joelmarodrigues/TheGreensS
 - The Green App v1.1.1  
 
 - Testing features  
-To watch a short video demonstrating the features of the app, click [here](https://youtube.com/shorts/6wkHrcQW0Gk?feature=share).
+To watch a short video demonstrating the features of the app, click [here](https://www.loom.com/share/9f3244ab45a94f0a98fffd90a8108bb8).
