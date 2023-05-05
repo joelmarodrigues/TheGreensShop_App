@@ -1,15 +1,18 @@
 package com.example.thegreensshop_app.activities
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.thegreensshop_app.R
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.messaging.FirebaseMessaging
 
 class LoginActivity : AppCompatActivity() {
 
@@ -46,9 +49,24 @@ class LoginActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         saveLoginState(true)
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
+                        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val token = task.result
+                                saveToken(token)
+                                val intent = Intent(this, MainActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            } else {
+                                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+                            }
+                        }
+
+                        fun saveToken(token: String?) {
+                            val editor = sharedPreferences.edit()
+                            editor.putString("token", token)
+                            editor.apply()
+                        }
+
                     } else {
                         // If sign in fails, display a message to the user.
                         when {
@@ -72,7 +90,6 @@ class LoginActivity : AppCompatActivity() {
                             }
                         }
                     }
-
                 }
         }
 
@@ -98,5 +115,13 @@ class LoginActivity : AppCompatActivity() {
         return sharedPreferences.getBoolean("isLoggedIn", false)
     }
 
+    private fun saveToken(token: String?) {
+        val editor = sharedPreferences.edit()
+        editor.putString("token", token)
+        editor.apply()
+    }
 
+    private fun getToken(): String? {
+        return sharedPreferences.getString("token", null)
+    }
 }
