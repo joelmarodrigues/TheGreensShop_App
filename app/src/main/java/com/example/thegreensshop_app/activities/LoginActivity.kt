@@ -94,7 +94,7 @@ class LoginActivity : AppCompatActivity() {
             FirebaseAuth.getInstance().signInWithCustomToken(authToken)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        // Redirect MainActivity
+                        // Redirect com.example.thegreensshop_app.activities.MainActivity
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                         finish()

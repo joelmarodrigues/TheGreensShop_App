@@ -3,7 +3,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp">
-
     <ImageView
         android:id="@+id/category_imageview"
         android:layout_width="match_parent"
@@ -11,7 +10,6 @@
         android:scaleType="centerCrop"
         android:adjustViewBounds="true"
         android:contentDescription="@string/category_vector" />
-
     <TextView
         android:id="@+id/category_name_textview"
         android:layout_width="match_parent"
@@ -19,6 +17,5 @@
         android:paddingTop="8dp"
         android:textSize="16sp"
         android:textColor="@android:color/black"
-        android:textStyle="bold"/>
-
+        android:textStyle="bold" />
 </LinearLayout>
