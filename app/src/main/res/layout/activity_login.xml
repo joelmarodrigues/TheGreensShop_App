@@ -57,7 +57,8 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         button:cornerRadius="10dp"
-        tools:ignore="VisualLintButtonSize" />
+        android:drawableStart="@drawable/ic_login" />
+
 
     <Button
         android:id="@+id/signup_button"

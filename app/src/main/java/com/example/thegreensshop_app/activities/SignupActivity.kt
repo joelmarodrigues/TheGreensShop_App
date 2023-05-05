@@ -55,22 +55,23 @@ class SignupActivity : AppCompatActivity() {
                 streetEditText.text.toString(),
                 cityEditText.text.toString(),
                 zipcodeEditText.text.toString(),
-                countryEditText.text.toString()
-            )
+                countryEditText.text.toString())
+
             val phone = phoneEditText.text.toString()
-            val email = emailEditText.text.toString()
-            val password = passwordEditText.text.toString()
+            val email = emailEditText.text?.toString()
+            val password = passwordEditText.text?.toString()
+
 
             //Handling exceptions
             // Check if any field is empty
-            if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || phone.isEmpty() || address.flatHouseNo.isEmpty() || address.street.isEmpty() || address.city.isEmpty() || address.zipcode.isEmpty() || address.country.isEmpty()) {
+            if (firstName.isEmpty() || lastName.isEmpty() || email?.isEmpty() == true || password?.isEmpty() == true || phone.isEmpty() || address.flatHouseNo?.isEmpty() == true || address.street?.isEmpty() == true || address.city?.isEmpty() == true || address.zipcode?.isEmpty()  == true || address.country?.isEmpty() == true) {
                 Snackbar.make(signupButton, "Please fill out all fields.", Snackbar.LENGTH_SHORT)
                     .show()
                 return@setOnClickListener
             }
 
             // Check if email is valid
-            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            if (!Patterns.EMAIL_ADDRESS.matcher(email!!).matches()) {
                 Snackbar.make(
                     signupButton,
                     "Please enter a valid email address.",
@@ -80,7 +81,7 @@ class SignupActivity : AppCompatActivity() {
             }
 
             // Check if password meets requirements
-            if (password.length < 8 || !password.matches(Regex(".*\\d.*[a-zA-Z].*"))) {
+            if ((password?.length ?: 0) < 8 || !password?.matches(Regex(".*\\d.*[a-zA-Z].*"))!!) {
                 Snackbar.make(
                     signupButton,
                     "Password must contain at least 8 characters with numbers and letters.",
@@ -88,6 +89,7 @@ class SignupActivity : AppCompatActivity() {
                 ).show()
                 return@setOnClickListener
             }
+
 
             // Check if phone number is valid
             if (phone.length < 8 || phone.length > 10 || !TextUtils.isDigitsOnly(phone)) {
@@ -111,9 +113,11 @@ class SignupActivity : AppCompatActivity() {
 
             val newUser = User(name, email, phone, address, geolocation)
 
+
             // Get Firestore database reference for the user collection
             val db = FirebaseFirestore.getInstance()
             val userRef = db.collection("users").document(email)
+
 
             userRef.get()
                 .addOnSuccessListener { document ->

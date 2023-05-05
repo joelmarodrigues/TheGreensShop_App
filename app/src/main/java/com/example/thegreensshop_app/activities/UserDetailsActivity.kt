@@ -1,5 +1,6 @@
 package com.example.thegreensshop_app.activities
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
@@ -20,6 +21,7 @@ class UserDetailsActivity : AppCompatActivity() {
     private lateinit var phoneTextView: TextView
     private lateinit var addressTextView: TextView
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_details)
@@ -39,34 +41,48 @@ class UserDetailsActivity : AppCompatActivity() {
             finish()
         }
 
+
         val user = FirebaseAuth.getInstance().currentUser
-        val db = FirebaseFirestore.getInstance()
-        val docRef = db.collection("users").document(user!!.uid)
 
-        docRef.get()
-            .addOnSuccessListener { document ->
-                if (document != null) {
+        if (user == null) {
 
-                    // DocumentSnapshot contains data of the user
-                    val userObj = document.toObject(User::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else {
 
-                    // Update UI with user details
-                    val name = userObj?.name
-                    val email = userObj?.email
-                    val phone = userObj?.phone
-                    val address = userObj?.address
+            val db = FirebaseFirestore.getInstance()
+            val docRef = db.collection("users").document(user.uid)
 
-                    nameTextView.text = name.toString()
-                    emailTextView.text = email
-                    phoneTextView.text = phone
-                    addressTextView.text = address.toString()
+            docRef.get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        // DocumentSnapshot contains data of the user
+                        val userObj = document.toObject(User::class.java)
 
-                } else {
-                    Log.d(TAG, "No such document")
+                        // Update UI with user details
+                        val address = userObj?.address
+                        val city = address?.city
+                        val country = address?.country
+                        val flatHouseNo = address?.flatHouseNo
+                        val street = address?.street
+                        val zipcode = address?.zipcode
+
+                        val name = userObj?.name
+                        val firstname = name?.firstName
+                        val lastname = name?.lastName
+
+                        nameTextView.text = "$firstname $lastname"
+                        emailTextView.text = userObj?.email
+                        phoneTextView.text = userObj?.phone
+                        addressTextView.text = "$flatHouseNo, $street, $city, $country $zipcode"
+                    } else {
+                        Log.d(TAG, "No such document")
+                    }
                 }
-            }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "get failed with ", exception)
-            }
+                .addOnFailureListener { exception ->
+                    Log.d(TAG, "get failed with ", exception)
+                }
+        }
     }
 }
