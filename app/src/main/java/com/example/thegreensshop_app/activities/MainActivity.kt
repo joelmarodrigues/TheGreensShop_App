@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity(), CategoryAdapter.CategoryClickListener 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportActionBar?.hide()
 
         // Initialize Firebase Authentication instance
         auth = FirebaseAuth.getInstance()
