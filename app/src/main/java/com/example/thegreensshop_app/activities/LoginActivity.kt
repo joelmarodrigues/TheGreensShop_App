@@ -2,12 +2,12 @@ package com.example.thegreensshop_app.activities
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.example.thegreensshop_app.R
 import com.google.firebase.auth.FirebaseAuth
 
@@ -16,6 +16,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var mAuth: FirebaseAuth
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +24,7 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         mAuth = FirebaseAuth.getInstance()
+        sharedPreferences = getSharedPreferences("loginPrefs", Context.MODE_PRIVATE)
 
         emailEditText = findViewById(R.id.email_edittext)
         passwordEditText = findViewById(R.id.password_edittext)
@@ -43,21 +45,12 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "signInWithEmail:success")
-                        FirebaseAuth.getInstance().currentUser?.getIdToken(true)?.addOnCompleteListener { task2 ->
-                            if (task2.isSuccessful) {
-                                val token = task2.result?.token
-                                // Save token in SharedPreferences
-                                val sharedPrefs = getSharedPreferences("auth", Context.MODE_PRIVATE)
-                                sharedPrefs.edit().putString("auth_token", token).apply()
-                            }
-                        }
-
+                        saveLoginState(true)
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
+                        finish()
                     } else {
                         // If sign in fails, display a message to the user.
-                        Log.w(TAG, "signInWithEmail:failure", task.exception)
                         when {
                             task.exception?.message?.contains("password") == true -> {
                                 Toast.makeText(
@@ -79,6 +72,7 @@ class LoginActivity : AppCompatActivity() {
                             }
                         }
                     }
+
                 }
         }
 
@@ -87,32 +81,22 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val sharedPrefs = getSharedPreferences("auth", Context.MODE_PRIVATE)
-        val authToken = sharedPrefs.getString("auth_token", null)
-
-        if (authToken != null) {
-            FirebaseAuth.getInstance().signInWithCustomToken(authToken)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        // Redirect com.example.thegreensshop_app.activities.MainActivity
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        // Clean token
-                        sharedPrefs.edit().remove("auth_token").apply()
-                    }
-                }
-        } else {
-            mAuth.currentUser?.let {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
+        if (isLoggedIn()) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
-    companion object {
-        private const val TAG = "com.example.thegreensshop_app.activities.LoginActivity"
+    private fun saveLoginState(isUserLoggedIn: Boolean) {
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("isLoggedIn", isUserLoggedIn)
+        editor.apply()
     }
+
+    private fun isLoggedIn(): Boolean {
+        return sharedPreferences.getBoolean("isLoggedIn", false)
+    }
+
+
 }

@@ -56,10 +56,10 @@ class UserDetailsActivity : AppCompatActivity() {
                     val phone = userObj?.phone
                     val address = userObj?.address
 
-                    nameTextView.text = name
+                    nameTextView.text = name.toString()
                     emailTextView.text = email
                     phoneTextView.text = phone
-                    addressTextView.text = address
+                    addressTextView.text = address.toString()
 
                 } else {
                     Log.d(TAG, "No such document")

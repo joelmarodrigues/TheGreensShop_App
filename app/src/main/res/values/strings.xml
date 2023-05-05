@@ -32,6 +32,7 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="category_vector">category_vector</string>
+    <string name="my_account_details">My Account Details</string>
 
 
 </resources>
