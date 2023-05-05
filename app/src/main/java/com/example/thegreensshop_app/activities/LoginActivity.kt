@@ -88,15 +88,13 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveLoginState(isUserLoggedIn: Boolean) {
+    private fun saveLoginState(isLoggedIn: Boolean) {
         val editor = sharedPreferences.edit()
-        editor.putBoolean("isLoggedIn", isUserLoggedIn)
+        editor.putBoolean("isLoggedIn", isLoggedIn)
         editor.apply()
     }
 
     private fun isLoggedIn(): Boolean {
         return sharedPreferences.getBoolean("isLoggedIn", false)
     }
-
-
 }

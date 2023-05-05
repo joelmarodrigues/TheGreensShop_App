@@ -7,12 +7,13 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.example.thegreensshop_app.adapters.CategoryAdapter
 import com.example.thegreensshop_app.R
+import com.example.thegreensshop_app.adapters.CategoryAdapter
+import com.example.thegreensshop_app.categories.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CategoryAdapter.CategoryClickListener {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var auth: FirebaseAuth
@@ -33,14 +34,15 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
-        // Initialize RecyclerView and set adapter
+// Initialize RecyclerView and set adapter
         val recyclerView = findViewById<RecyclerView>(R.id.category_recyclerview)
 
         val categories = getCategories()
-        val categoryAdapter = CategoryAdapter(this, categories)
+        val categoryAdapter = CategoryAdapter(categories, this)
 
         recyclerView.adapter = categoryAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+
 
         // Initialize ViewPager2
         viewPager = findViewById(R.id.viewPager2)
@@ -72,5 +74,21 @@ class MainActivity : AppCompatActivity() {
         return categories
     }
 
+    // Handle click on a category
+    override fun onCategoryClicked(category: CategoryAdapter.Category) {
+        val intent = Intent(this, getCategoryActivity(category.name))
+        startActivity(intent)
     }
 
+    // Return the corresponding Activity based on the category name
+    private fun getCategoryActivity(categoryName: String): Class<*> {
+        return when (categoryName) {
+            "All" -> AllCategoriesActivity::class.java
+            "Houseplants" -> HouseplantsActivity::class.java
+            "Pots" -> PotsActivity::class.java
+            "Care" -> CareActivity::class.java
+            "Accessories" -> AccessoriesActivity::class.java
+            else -> throw IllegalArgumentException("Invalid category name")
+        }
+    }
+}
