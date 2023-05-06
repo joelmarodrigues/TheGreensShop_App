@@ -73,8 +73,8 @@ Icons: https://icons8.com/  |  Apache Library 2.0
   - Namespaces in XML [Link here](https://www.w3.org/TR/1999/REC-xml-names-19990114/#AttributePrefixUnboundandroidx.cardview.widget.CardView&app:cardCornerRadius&app)
 
 - Video Classes and Tutorials: 
-  - Stack Mobile - [Projeto Firebase](https://www.youtube.com/playlist?list=PLizN3WA8HR1y0DMrcNIz8sZvzXzRM-WNQ).
-  - CodingZest - [Firebase Realtime Database] (https://developer.android.com/reference/android/view/View.OnClickListener).
+  - Stack Mobile - [Projeto Firebase](https://www.youtube.com/playlist?list=PLizN3WA8HR1y0DMrcNIz8sZvzXzRM-WNQ)
+  - CodingZest - [Firebase Realtime Database](https://developer.android.com/reference/android/view/View.OnClickListener)
 
   
 ## Screenshots
