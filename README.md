@@ -69,7 +69,7 @@ Icons: https://icons8.com/  |  Apache Library 2.0
 - Reading: 
   - Android Developer [Link here](https://developer.android.com/)
   - Firebase - [Add Firebase to your Android project](https://firebase.google.com/docs/android/setup?hl=en&authuser=0)
-  - Firebase Android SDK Release Notes: https://firebase.google.com/support/release-notes/android#appcheck-debug_v17-0-0
+  - Firebase Android SDK [Release Notes](https://firebase.google.com/support/release-notes/android#appcheck-debug_v17-0-0)
   - Namespaces in XML [Link here](https://www.w3.org/TR/1999/REC-xml-names-19990114/#AttributePrefixUnboundandroidx.cardview.widget.CardView&app:cardCornerRadius&app)
 
 - Video Classes and Tutorials: 
