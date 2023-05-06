@@ -1,6 +1,6 @@
 # Mobile Apps 1 Project
 
-- Student Name: Joelma Rodirgues
+- Student Name: Joelma Rodrigues
 - Student ID: 24130
 - Course: Bsc in Computing  
 
@@ -26,7 +26,7 @@
   - [ ] 5.1. Use the stored userID to show user details
   - [ ] 5.2. Show a random circular profile image
   - [x] 5.3. Show Logout button, on click take back to Signup / Log In page (Restart should not auto login after logout)
-- [ ] 6. UI/Implementational Requirements
+- [ ] 6. UI/Implementation Requirements
   - [x] 6.1. RecyclerView used for all Lists: Categories, Products, Orders
   - [x] 6.2. If logged in, attach authentication token to all requests until logout
   - [ ] 6.3. Add a small "About this app" button in the profile page, that shows a page on click with your copyright details and credits
@@ -73,7 +73,7 @@ Icons: https://icons8.com/  |  Apache Library 2.0
   - Namespaces in XML [Link here](https://www.w3.org/TR/1999/REC-xml-names-19990114/#AttributePrefixUnboundandroidx.cardview.widget.CardView&app:cardCornerRadius&app)
 
 - Video Classes and Tutorials: 
-  - Stack Mobile - [Projeto Firebase](https://www.youtube.com/playlist?list=PLizN3WA8HR1y0DMrcNIz8sZvzXzRM-WNQ)
+  - Stack Mobile - [Project Firebase](https://www.youtube.com/playlist?list=PLizN3WA8HR1y0DMrcNIz8sZvzXzRM-WNQ)
   - CodingZest - [Firebase Realtime Database](https://developer.android.com/reference/android/view/View.OnClickListener)
 
   
@@ -85,7 +85,7 @@ Icons: https://icons8.com/  |  Apache Library 2.0
       <img src="app/src/main/res/drawable/home_screen.png" alt="Home Screen" width="250">
     </td>
     <td>
-      <img src="app/src/main/res/drawable/Product_List.png" alt="Product List" width="250">
+      <img src="app/src/main/res/drawable/product_list.png" alt="Product List" width="250">
     </td>
   </tr>
   <tr>
